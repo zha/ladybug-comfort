@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ladybug_comfort.collection.utci module &#8212; ladybug comfort  documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ladybug_comfort.parameter package" href="ladybug_comfort.parameter.html" />
+    <link rel="prev" title="ladybug_comfort.collection.solarcal module" href="ladybug_comfort.collection.solarcal.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          ladybug comfort</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="ladybug_comfort.html">ladybug_comfort package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="ladybug_comfort.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="ladybug_comfort.collection.html">ladybug_comfort.collection package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="ladybug_comfort.collection.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.adaptive.html">ladybug_comfort.collection.adaptive module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.base.html">ladybug_comfort.collection.base module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.pmv.html">ladybug_comfort.collection.pmv module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.solarcal.html">ladybug_comfort.collection.solarcal module</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">ladybug_comfort.collection.utci module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ladybug_comfort.collection.html#module-ladybug_comfort.collection">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.parameter.html">ladybug_comfort.parameter package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ladybug_comfort.parameter.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.parameter.adaptive.html">ladybug_comfort.parameter.adaptive module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.parameter.pmv.html">ladybug_comfort.parameter.pmv module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.parameter.solarcal.html">ladybug_comfort.parameter.solarcal module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.parameter.utci.html">ladybug_comfort.parameter.utci module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ladybug_comfort.parameter.html#module-ladybug_comfort.parameter">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_comfort.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.adaptive.html">ladybug_comfort.adaptive module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.apparent.html">ladybug_comfort.apparent module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.asv.html">ladybug_comfort.asv module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.degreetime.html">ladybug_comfort.degreetime module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.di.html">ladybug_comfort.di module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.hi.html">ladybug_comfort.hi module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.humidex.html">ladybug_comfort.humidex module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.pmv.html">ladybug_comfort.pmv module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.solarcal.html">ladybug_comfort.solarcal module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.ts.html">ladybug_comfort.ts module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.utci.html">ladybug_comfort.utci module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.wc.html">ladybug_comfort.wc module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_comfort.html#module-ladybug_comfort">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="ladybug_comfort.html">ladybug_comfort package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="ladybug_comfort.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="ladybug_comfort.collection.html">ladybug_comfort.collection package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="ladybug_comfort.collection.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.adaptive.html">ladybug_comfort.collection.adaptive module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.base.html">ladybug_comfort.collection.base module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.pmv.html">ladybug_comfort.collection.pmv module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.solarcal.html">ladybug_comfort.collection.solarcal module</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">ladybug_comfort.collection.utci module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ladybug_comfort.collection.html#module-ladybug_comfort.collection">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.parameter.html">ladybug_comfort.parameter package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_comfort.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_comfort.html#module-ladybug_comfort">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="ladybug_comfort.collection.solarcal.html" title="Previous Chapter: ladybug_comfort.collection.solarcal module"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; ladybug_comfo...</span>
+    </a>
+  </li>
+  <li>
+    <a href="ladybug_comfort.parameter.html" title="Next Chapter: ladybug_comfort.parameter package"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">ladybug_comfo... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/ladybug_comfort.collection.utci.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="ladybug_comfort.html">ladybug_comfort package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="ladybug_comfort.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="ladybug_comfort.collection.html">ladybug_comfort.collection package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="ladybug_comfort.collection.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.adaptive.html">ladybug_comfort.collection.adaptive module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.base.html">ladybug_comfort.collection.base module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.pmv.html">ladybug_comfort.collection.pmv module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_comfort.collection.solarcal.html">ladybug_comfort.collection.solarcal module</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">ladybug_comfort.collection.utci module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ladybug_comfort.collection.html#module-ladybug_comfort.collection">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_comfort.parameter.html">ladybug_comfort.parameter package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_comfort.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_comfort.html#module-ladybug_comfort">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="module-ladybug_comfort.collection.utci">
+<span id="ladybug-comfort-collection-utci-module"></span><h1>ladybug_comfort.collection.utci module<a class="headerlink" href="#module-ladybug_comfort.collection.utci" title="Permalink to this headline">¶</a></h1>
+<p>Object for calculating UTCI comfort from DataCollections.</p>
+<dl class="class">
+<dt id="ladybug_comfort.collection.utci.UTCI">
+<em class="property">class </em><code class="descclassname">ladybug_comfort.collection.utci.</code><code class="descname">UTCI</code><span class="sig-paren">(</span><em>air_temperature</em>, <em>rel_humidity</em>, <em>rad_temperature=None</em>, <em>wind_speed=None</em>, <em>comfort_parameter=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ladybug_comfort/collection/utci.html#UTCI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ladybug_comfort.collection.base.html#ladybug_comfort.collection.base.ComfortCollection" title="ladybug_comfort.collection.base.ComfortCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">ladybug_comfort.collection.base.ComfortCollection</span></code></a></p>
+<p>UTCI comfort DataCollection object.</p>
+<dl class="docutils">
+<dt>Properties:</dt>
+<dd>air_temperature
+rad_temperature
+air_speed
+rel_humidity
+comfort_parameter
+universal_thermal_climate_index
+is_comfortable
+thermal_condition
+thermal_condition_five_point
+thermal_condition_seven_point
+thermal_condition_nine_point
+thermal_condition_eleven_point
+original_utci_category
+percent_comfortable
+percent_uncomfortable
+percent_neutral
+percent_hot
+percent_cold
+percent_extreme_cold_stress
+percent_very_strong_cold_stress
+percent_strong_cold_stress
+percent_moderate_cold_stress
+percent_slight_cold_stress
+percent_slight_heat_stress
+percent_moderate_heat_stress
+percent_strong_heat_stress
+percent_very_strong_heat_stress
+percent_extreme_heat_stress</dd>
+</dl>
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.air_temperature">
+<code class="descname">air_temperature</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.air_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data Collection of air temperature values in degrees C.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.comfort_parameter">
+<code class="descname">comfort_parameter</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.comfort_parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>UTCI comfort parameters that are assigned to this object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.is_comfortable">
+<code class="descname">is_comfortable</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.is_comfortable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data Collection of integers noting whether the input conditions are
+acceptable according to the assigned comfort_parameter.</p>
+<dl class="docutils">
+<dt>Values are one of the following:</dt>
+<dd>0 = uncomfortable
+1 = comfortable</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.original_utci_category">
+<code class="descname">original_utci_category</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.original_utci_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data Collection of integers noting the original UTCI assessment scale.</p>
+<p>Glossary of Terms for Thermal Physiology (2003).
+Journal of Thermal Biology 28, 75-106</p>
+<dl class="docutils">
+<dt>Values are one of the following:</dt>
+<dd>0 = extreme cold stress
+1 = very strong cold stress
+2 = strong cold stress
+3 = moderate cold stress
+4 = slight cold stress
+5 = no thermal stress
+6 = moderate heat stress
+7 = strong heat stress
+8 = strong heat stress
+9 = extreme heat stress</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_cold">
+<code class="descname">percent_cold</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_cold" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that the thermal_condiiton is cold.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_comfortable">
+<code class="descname">percent_comfortable</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_comfortable" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time comfortabe given by the assigned comfort_parameter.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_extreme_cold_stress">
+<code class="descname">percent_extreme_cold_stress</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_extreme_cold_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that conditions have very strong cold stress.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_extreme_heat_stress">
+<code class="descname">percent_extreme_heat_stress</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_extreme_heat_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that conditions have very strong heat stress.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_hot">
+<code class="descname">percent_hot</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_hot" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that the thermal_condiiton is hot.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_moderate_cold_stress">
+<code class="descname">percent_moderate_cold_stress</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_moderate_cold_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that conditions have moderate cold stress.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_moderate_heat_stress">
+<code class="descname">percent_moderate_heat_stress</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_moderate_heat_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that conditions have moderate heat stress.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_neutral">
+<code class="descname">percent_neutral</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_neutral" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that the thermal_condiiton is neutral.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_slight_cold_stress">
+<code class="descname">percent_slight_cold_stress</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_slight_cold_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that conditions have slight cold stress.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_slight_heat_stress">
+<code class="descname">percent_slight_heat_stress</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_slight_heat_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that conditions have slight heat stress.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_strong_cold_stress">
+<code class="descname">percent_strong_cold_stress</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_strong_cold_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that conditions have strong cold stress.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_strong_heat_stress">
+<code class="descname">percent_strong_heat_stress</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_strong_heat_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that conditions have strong heat stress.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_uncomfortable">
+<code class="descname">percent_uncomfortable</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_uncomfortable" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time uncomfortabe given by the assigned comfort_parameter.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_very_strong_cold_stress">
+<code class="descname">percent_very_strong_cold_stress</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_very_strong_cold_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that conditions have very strong cold stress.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.percent_very_strong_heat_stress">
+<code class="descname">percent_very_strong_heat_stress</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.percent_very_strong_heat_stress" title="Permalink to this definition">¶</a></dt>
+<dd><p>The percent of time that conditions have very strong heat stress.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.rad_temperature">
+<code class="descname">rad_temperature</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.rad_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data Collection of mean radiant temperature (MRT) values in degrees C.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.rel_humidity">
+<code class="descname">rel_humidity</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.rel_humidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data Collection of relative humidity values in %.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.thermal_condition">
+<code class="descname">thermal_condition</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.thermal_condition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data Collection of integers noting the thermal status of a subject
+according to the assigned comfort_parameter.</p>
+<dl class="docutils">
+<dt>Values are one of the following:</dt>
+<dd><dl class="first docutils">
+<dt>-1 = cold</dt>
+<dd>0 = netural</dd>
+</dl>
+<p class="last">+1 = hot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.thermal_condition_eleven_point">
+<code class="descname">thermal_condition_eleven_point</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.thermal_condition_eleven_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data Collection of integers noting the thermal status on an eleven-point scale.</p>
+<dl class="docutils">
+<dt>Values are one of the following:</dt>
+<dd><p class="first">-5 = extreme cold stress
+-4 = very strong cold stress
+-3 = strong cold stress
+-2 = moderate cold stress
+-1 = slight cold stress</p>
+<blockquote>
+<div>0 = no thermal stress</div></blockquote>
+<p class="last">+1 = slight heat stress
++2 = moderate heat stress
++3 = strong heat stress
++4 = very strong heat stress
++5 = extreme heat stress</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.thermal_condition_five_point">
+<code class="descname">thermal_condition_five_point</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.thermal_condition_five_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data Collection of integers noting the thermal status on a five-point scale.</p>
+<dl class="docutils">
+<dt>Values are one of the following:</dt>
+<dd><p class="first">-2 = strong/extreme cold stress
+-1 = moderate cold stress</p>
+<blockquote>
+<div>0 = no thermal stress</div></blockquote>
+<p class="last">+1 = moderate heat stress
++2 = strong/extreme heat stress</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.thermal_condition_nine_point">
+<code class="descname">thermal_condition_nine_point</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.thermal_condition_nine_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data Collection of integers noting the thermal status on a nine-point scale.</p>
+<dl class="docutils">
+<dt>Values are one of the following:</dt>
+<dd><p class="first">-4 = very strong/extreme cold stress
+-3 = strong cold stress
+-2 = moderate cold stress
+-1 = slight cold stress</p>
+<blockquote>
+<div>0 = no thermal stress</div></blockquote>
+<p class="last">+1 = slight heat stress
++2 = moderate heat stress
++3 = strong heat stress
++4 = very strong/extreme heat stress</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.thermal_condition_seven_point">
+<code class="descname">thermal_condition_seven_point</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.thermal_condition_seven_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data Collection of integers noting the thermal status on a seven-point scale.</p>
+<dl class="docutils">
+<dt>Values are one of the following:</dt>
+<dd><p class="first">-3 = very strong/extreme cold stress
+-2 = strong cold stress
+-1 = moderate cold stress</p>
+<blockquote>
+<div>0 = no thermal stress</div></blockquote>
+<p class="last">+1 = moderate heat stress
++2 = strong heat stress
++3 = very strong/extreme heat stress</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.universal_thermal_climate_index">
+<code class="descname">universal_thermal_climate_index</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.universal_thermal_climate_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Data Collection of Universal Thermal Climate Index (UTCI) in C.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ladybug_comfort.collection.utci.UTCI.wind_speed">
+<code class="descname">wind_speed</code><a class="headerlink" href="#ladybug_comfort.collection.utci.UTCI.wind_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data Collection of air speed values in m/s.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
