@@ -192,7 +192,7 @@ def fanger_pmv(ta, tr, vel, rh, met, clo, wme=0):
 
     ts = 0.303 * math.exp(-0.036 * m) + 0.028
     pmv = ts * (mw - hl1 - hl2 - hl3 - hl4 - hl5 - hl6)
-    ppd = ppd_from_pmv(pmv)
+    # ppd = ppd_from_pmv(pmv)
 
     # collect heat loss terms.
     heat_loss = {
@@ -203,7 +203,7 @@ def fanger_pmv(ta, tr, vel, rh, met, clo, wme=0):
         'rad': hl5,
         'conv': hl6}
 
-    return pmv, ppd, heat_loss
+    return pmv, heat_loss
 
 
 def pierce_set(ta, tr, vel, rh, met, clo, wme=0.):
