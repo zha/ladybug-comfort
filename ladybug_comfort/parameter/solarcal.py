@@ -9,50 +9,51 @@ from ..solarcal import sharp_from_solar_and_body_azimuth
 class SolarCalParameter(ComfortParameter):
     """Parameters specifying body characteristics for the SolarCal model.
 
+    Args:
+        posture: A text string indicating the posture of the body. Letters must
+            be lowercase.  Choose from the following: "standing", "seated", "supine".
+            Default is "standing".
+        sharp: A number between 0 and 180 representing the solar horizontal
+            angle relative to front of person (SHARP). 0 signifies sun that is
+            shining directly into the person's face and 180 signifies sun that
+            is shining at the person's back. Default is 135, asuming that a person
+            typically faces their side or back to the sun to avoid glare.
+        body_azimuth: A number (between 0 and 360) representing the direction that
+            the human is facing in degrees (0=North, 90=East, 180=South, 270=West).
+            If this number is greater than 360 or less than 0, it will be converted
+            to the correct angle within this range.
+            Default is None, which will assume that the sharp input dictates the
+            degrees the human is facing from the sun.
+        body_absorptivity: A number between 0 and 1 representing the average
+            shortwave absorptivity of the body (including clothing and skin color).
+            Typical clothing values - white: 0.2, khaki: 0.57, black: 0.88
+            Typical skin values - white: 0.57, brown: 0.65, black: 0.84
+            Default is 0.7 for average (brown) skin and medium clothing.
+        body_emissivity: A number between 0 and 1 representing the average
+            longwave emissivity of the body.  Default is 0.95, which is almost
+            always the case except in rare situations of wearing metalic clothing.
+
     Properties:
-        posture
-        sharp
-        body_azimuth
-        body_absorptivity
-        body_emissivity
-        acceptable_postures
+        * posture
+        * sharp
+        * body_azimuth
+        * body_absorptivity
+        * body_emissivity
     """
     _model = 'SolarCal'
-    _acceptable_postures = ('standing', 'seated', 'supine')
+    POSTURES = ('standing', 'seated', 'supine')
+    __slots__ = ('_posture', '_sharp', '_body_azimuth', '_body_absorptivity',
+                 '_body_emissivity')
 
     def __init__(self, posture=None, sharp=None, body_azimuth=None,
                  body_absorptivity=None, body_emissivity=None):
         """Initalize SolarCal Body Parameters.
-
-        Args:
-            posture: A text string indicating the posture of the body. Letters must
-                be lowercase.  Choose from the following: "standing", "seated", "supine".
-                Default is "standing".
-            sharp: A number between 0 and 180 representing the solar horizontal
-                angle relative to front of person (SHARP). 0 signifies sun that is
-                shining directly into the person's face and 180 signifies sun that
-                is shining at the person's back. Default is 135, asuming that a person
-                typically faces their side or back to the sun to avoid glare.
-            body_azimuth: A number (between 0 and 360) representing the direction that
-                the human is facing in degrees (0=North, 90=East, 180=South, 270=West).
-                If this number is greater than 360 or less than 0, it will be converted
-                to the correct angle within this range.
-                Default is None, which will assume that the sharp input dictates the
-                degrees the human is facing from the sun.
-            body_absorptivity: A number between 0 and 1 representing the average
-                shortwave absorptivity of the body (including clothing and skin color).
-                Typical clothing values - white: 0.2, khaki: 0.57, black: 0.88
-                Typical skin values - white: 0.57, brown: 0.65, black: 0.84
-                Default is 0.7 for average (brown) skin and medium clothing.
-            body_emissivity: A number between 0 and 1 representing the average
-                longwave emissivity of the body.  Default is 0.95, which is almost
-                always the case except in rare situations of wearing metalic clothing.
         """
         if posture is not None:
             assert isinstance(posture, str), 'posture must be a string.'\
                 ' Got {}'.format(type(posture))
-            assert posture.lower() in self._acceptable_postures, 'posture {} is not '\
-                'acceptable. Choose from {}'.format(posture, self._acceptable_postures)
+            assert posture.lower() in self.POSTURES, 'posture {} is not '\
+                'acceptable. Choose from {}'.format(posture, self.POSTURES)
             self._posture = posture
         else:
             self._posture = 'standing'
@@ -126,11 +127,6 @@ class SolarCalParameter(ComfortParameter):
 
         Between 0 and 1. Typically 0.95."""
         return self._body_emissivity
-
-    @property
-    def acceptable_postures(self):
-        """Tuple with acceptable inputs for the posture property."""
-        return self._acceptable_postures
 
     def get_sharp(self, solar_azimuth):
         if self.sharp is not None:

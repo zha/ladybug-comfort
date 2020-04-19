@@ -22,6 +22,28 @@ from ladybug.datatype.fraction import Fraction
 
 class _SolarCalBase(ComfortCollection):
     """Base class used by all objects that use SolarCal with Data Collections."""
+    __slots__ = ('_location', '_fract_exp', '_flr_ref', '_body_par', '_dmrt', '_mrt',
+                 '_fract_exp_coll', '_flr_ref_coll', '_dmrt_coll', '_mrt_coll')
+
+    def __init__(self, location, fraction_body_exposed=None, floor_reflectance=None,
+                 solarcal_body_parameter=None):
+        # set required inputs
+        assert isinstance(location, Location), 'location must be a Ladybug Location' \
+            ' object. Got {}.'.format(type(location))
+        self._location = location.duplicate()
+
+        # check optional inputs
+        self._fract_exp = self._fraction_input_check(
+            fraction_body_exposed, 'fraction_body_exposed', 1)
+        self._flr_ref = self._fraction_input_check(
+            floor_reflectance, 'floor_reflectance', 0.25)
+
+        # check comfort parameters
+        self._body_par_check(solarcal_body_parameter)
+
+        # setup lists to be filled
+        self._dmrt = []
+        self._mrt = []
 
     @property
     def location(self):
@@ -104,59 +126,63 @@ class _SolarCalBase(ComfortCollection):
 class OutdoorSolarCal(_SolarCalBase):
     """Outdoor SolarCal Collection object.
 
+    Args:
+        location: A Ladybug Location object.
+        direct_normal_solar: Hourly Data Collection with the direct normal solar
+            irradiance in W/m2.
+        diffuse_horizontal_solar: Hourly Data Collection with the diffuse
+            horizontal solar irradiance in W/m2.
+        surface_temperatures: Hourly Data Collection with the temperature of surfaces
+            around the person in degrees Celcius. This includes the ground and
+            any other surfaces blocking the view to the sky. When the temperature
+            of these individual surfaces are known, the input here should be the
+            average temperature of the surfaces weighted by view-factor to the human.
+            When such individaal surface temperatures are unknown, the outdoor
+            dry bulb temperature is typically used as a proxy.
+        horizontal_infrared: Hourly Data Collection with the horizontal infrared
+            radiation intensity from the sky in W/m2.
+        fraction_body_exposed: A Data Collection or number between 0 and 1
+            representing the fraction of the body exposed to direct sunlight.
+            Note that this does not include the body’s self-shading; only the
+            shading from surroundings.
+            Default is 1 for a person standing in an open area.
+        sky_exposure: A Data Collection or number between 0 and 1 representing the
+            fraction of the sky vault in occupant’s view. Default is 1 for a person
+            standing in an open area.
+        floor_reflectance: A Data Collection or number between 0 and 1 that
+            represents the reflectance of the floor. Default is for 0.25 which
+            is characteristic of outdoor grass or dry bare soil.
+        solarcal_body_parameter: Optional SolarCalParameter object to account for
+            properties of the human geometry.
+
     Properties:
-        location
-        direct_normal_solar
-        diffuse_horizontal_solar
-        horizontal_infrared
-        surface_temperatures
-        fraction_body_exposed
-        sky_exposure
-        floor_reflectance
-        solarcal_body_parameter
-        shortwave_effective_radiant_field
-        longwave_effective_radiant_field
-        shortwave_mrt_delta
-        longwave_mrt_delta
-        mrt_delta
-        mean_radiant_temperature
+        * location
+        * direct_normal_solar
+        * diffuse_horizontal_solar
+        * horizontal_infrared
+        * surface_temperatures
+        * fraction_body_exposed
+        * sky_exposure
+        * floor_reflectance
+        * solarcal_body_parameter
+        * shortwave_effective_radiant_field
+        * longwave_effective_radiant_field
+        * shortwave_mrt_delta
+        * longwave_mrt_delta
+        * mrt_delta
+        * mean_radiant_temperature
     """
     _model = 'Outdoor SolarCal'
+    __slots__ = ('_dir_norm', '_diff_horiz', '_horiz_ir', '_srf_temp', '_sky_exp',
+                 '_s_erf', '_s_dmrt', '_l_erf', '_l_dmrt', '_dir_norm_coll',
+                 '_diff_horiz_coll', '_horiz_ir_coll', '_srf_temp_coll', '_sky_exp_coll',
+                 '_s_erf_coll', '_s_dmrt_coll', '_l_erf_coll', '_l_dmrt_coll')
 
     def __init__(self, location, direct_normal_solar, diffuse_horizontal_solar,
                  horizontal_infrared, surface_temperatures,
                  fraction_body_exposed=None, sky_exposure=None,
                  floor_reflectance=None, solarcal_body_parameter=None):
         """Initalize Outdoor SolarCal object.
-
-        Args:
-            location: A Ladybug Location object.
-            direct_normal_solar: Hourly Data Collection with the direct normal solar
-                irradiance in W/m2.
-            diffuse_horizontal_solar: Hourly Data Collection with the diffuse
-                horizontal solar irradiance in W/m2.
-            surface_temperatures: Hourly Data Collection with the temperature of surfaces
-                around the person in degrees Celcius. This includes the ground and
-                any other surfaces blocking the view to the sky. When the temperature
-                of these individual surfaces are known, the input here should be the
-                average temperature of the surfaces weighted by view-factor to the human.
-                When such individaal surface temperatures are unknown, the outdoor
-                dry bulb temperature is typically used as a proxy.
-            horizontal_infrared: Hourly Data Collection with the horizontal infrared
-                radiation intensity from the sky in W/m2.
-            fraction_body_exposed: A Data Collection or number between 0 and 1
-                representing the fraction of the body exposed to direct sunlight.
-                Note that this does not include the body’s self-shading; only the
-                shading from surroundings.
-                Default is 1 for a person standing in an open area.
-            sky_exposure: A Data Collection or number between 0 and 1 representing the
-                fraction of the sky vault in occupant’s view. Default is 1 for a person
-                standing in an open area.
-            floor_reflectance: A Data Collection or number between 0 and 1 that
-                represents the reflectance of the floor. Default is for 0.25 which
-                is characteristic of outdoor grass or dry bare soil.
-            solarcal_body_parameter: Optional SolarCalParameter object to account for
-                properties of the human geometry.
         """
         # set up the object using radiation as a base
         self._radiation_check(direct_normal_solar, 'direct_normal_solar')
@@ -166,9 +192,8 @@ class OutdoorSolarCal(_SolarCalBase):
         self._base_collection = direct_normal_solar
 
         # check required inputs
-        assert isinstance(location, Location), 'location must be a Ladybug Location' \
-            ' object. Got {}.'.format(type(location))
-        self._location = location.duplicate()
+        _SolarCalBase.__init__(self, location, fraction_body_exposed, floor_reflectance,
+                               solarcal_body_parameter)
         self._dir_norm = direct_normal_solar.values
         self._diff_horiz = diffuse_horizontal_solar.values
         self._horiz_ir = self._check_input(
@@ -178,18 +203,10 @@ class OutdoorSolarCal(_SolarCalBase):
             surface_temperatures, Temperature, 'C', 'surface_temperatures')
 
         # check optional inputs
-        self._fract_exp = self._fraction_input_check(
-            fraction_body_exposed, 'fraction_body_exposed', 1)
-        self._sky_exp = self._fraction_input_check(
-            sky_exposure, 'sky_exposure', 1)
-        self._flr_ref = self._fraction_input_check(
-            floor_reflectance, 'floor_reflectance', 0.25)
+        self._sky_exp = self._fraction_input_check(sky_exposure, 'sky_exposure', 1)
 
         # check that all input data collections are aligned.
         HourlyDiscontinuousCollection.are_collections_aligned(self._input_collections)
-
-        # check comfort parameters
-        self._body_par_check(solarcal_body_parameter)
 
         # compute SolarCal
         self._calculate_solarcal()
@@ -201,8 +218,6 @@ class OutdoorSolarCal(_SolarCalBase):
         self._s_dmrt = []
         self._l_erf = []
         self._l_dmrt = []
-        self._dmrt = []
-        self._mrt = []
 
         # get altitudes and sharps from solar position
         _altitudes, _sharps = self._get_altitudes_and_sharps()
@@ -281,56 +296,59 @@ class OutdoorSolarCal(_SolarCalBase):
 class IndoorSolarCal(_SolarCalBase):
     """Indoor SolarCal Collection object.
 
+    Args:
+        location: A Ladybug Location object.
+        direct_normal_solar: Hourly Data Collection with the direct normal solar
+            irradiance in W/m2.
+        diffuse_horizontal_solar: Hourly Data Collection with the diffuse
+            horizontal solar irradiance in W/m2.
+        longwave_mrt: Hourly Data Collection or individual value with the longwave
+            mean radiant temperature (MRT) expereinced as a result of indoor
+            surface temperatures in C.
+        fraction_body_exposed: A Data Collection or number between 0 and 1
+            representing the fraction of the body exposed to direct sunlight.
+            Note that this does not include the body’s self-shading; only the
+            shading from surroundings.
+            Default is 1 for a person standing in an open area.
+        sky_exposure: A Data Collection or number between 0 and 1 representing the
+            fraction of the sky vault in occupant’s view. Default is 1 for a person
+            standing in an open area.
+        floor_reflectance: A Data Collection or number between 0 and 1 that
+            represents the reflectance of the floor. Default is for 0.25 which
+            is characteristic of outdoor grass or dry bare soil.
+        window_transmittance: A Data Collection or number between 0 and 1 that
+            represents the broadband solar transmittance of the window through which
+            the sun is coming. Such values tend to be slightly less than the
+            SHGC. Values might be as low as 0.2 and could be as high as 0.85
+            for a single pane of glass. Default is 0.4 assuming a double pane
+            window with a relatively mild low-e coating.
+        solarcal_body_parameter: Optional SolarCalParameter object to account for
+            properties of the human geometry.
+
     Properties:
-        location
-        direct_normal_solar
-        diffuse_horizontal_solar
-        longwave_mrt
-        fraction_body_exposed
-        sky_exposure
-        floor_reflectance
-        window_transmittance
-        solarcal_body_parameter
-        effective_radiant_field
-        mrt_delta
-        mean_radiant_temperature
+        * location
+        * direct_normal_solar
+        * diffuse_horizontal_solar
+        * longwave_mrt
+        * fraction_body_exposed
+        * sky_exposure
+        * floor_reflectance
+        * window_transmittance
+        * solarcal_body_parameter
+        * effective_radiant_field
+        * mrt_delta
+        * mean_radiant_temperature
     """
     _model = 'Indoor SolarCal'
+    __slots__ = ('_dir_norm', '_diff_horiz', '_l_mrt', '_sky_exp', '_win_trans',
+                 '_erf', '_dmrt', '_dir_norm_coll', '_diff_horiz_coll', '_l_mrt_coll',
+                 '_sky_exp_coll', '_win_trans_coll', '_erf_coll', '_dmrt_coll')
 
     def __init__(self, location, direct_normal_solar, diffuse_horizontal_solar,
                  longwave_mrt, fraction_body_exposed=None, sky_exposure=None,
                  floor_reflectance=None, window_transmittance=None,
                  solarcal_body_parameter=None):
         """Initalize Indoor SolarCal object.
-
-        Args:
-            location: A Ladybug Location object.
-            direct_normal_solar: Hourly Data Collection with the direct normal solar
-                irradiance in W/m2.
-            diffuse_horizontal_solar: Hourly Data Collection with the diffuse
-                horizontal solar irradiance in W/m2.
-            longwave_mrt: Hourly Data Collection or individual value with the longwave
-                mean radiant temperature (MRT) expereinced as a result of indoor
-                surface temperatures in C.
-            fraction_body_exposed: A Data Collection or number between 0 and 1
-                representing the fraction of the body exposed to direct sunlight.
-                Note that this does not include the body’s self-shading; only the
-                shading from surroundings.
-                Default is 1 for a person standing in an open area.
-            sky_exposure: A Data Collection or number between 0 and 1 representing the
-                fraction of the sky vault in occupant’s view. Default is 1 for a person
-                standing in an open area.
-            floor_reflectance: A Data Collection or number between 0 and 1 that
-                represents the reflectance of the floor. Default is for 0.25 which
-                is characteristic of outdoor grass or dry bare soil.
-            window_transmittance: A Data Collection or number between 0 and 1 that
-                represents the broadband solar transmittance of the window through which
-                the sun is coming. Such values tend to be slightly less than the
-                SHGC. Values might be as low as 0.2 and could be as high as 0.85
-                for a single pane of glass. Default is 0.4 assuming a double pane
-                window with a relatively mild low-e coating.
-            solarcal_body_parameter: Optional SolarCalParameter object to account for
-                properties of the human geometry.
         """
         # set up the object using radiation as a base
         self._radiation_check(direct_normal_solar, 'direct_normal_solar')
@@ -340,28 +358,20 @@ class IndoorSolarCal(_SolarCalBase):
         self._base_collection = direct_normal_solar
 
         # check required inputs
-        assert isinstance(location, Location), 'location must be a Ladybug Location' \
-            ' object. Got {}.'.format(type(location))
-        self._location = location.duplicate()
+        _SolarCalBase.__init__(self, location, fraction_body_exposed, floor_reflectance,
+                               solarcal_body_parameter)
         self._dir_norm = direct_normal_solar.values
         self._diff_horiz = diffuse_horizontal_solar.values
         self._l_mrt = self._check_input(longwave_mrt, Temperature, 'C', 'longwave_mrt')
 
         # check optional inputs
-        self._fract_exp = self._fraction_input_check(
-            fraction_body_exposed, 'fraction_body_exposed', 1)
         self._sky_exp = self._fraction_input_check(
             sky_exposure, 'sky_exposure', 1)
-        self._flr_ref = self._fraction_input_check(
-            floor_reflectance, 'floor_reflectance', 0.25)
         self._win_trans = self._fraction_input_check(
             window_transmittance, 'window_transmittance', 0.4)
 
         # check that all input data collections are aligned.
         HourlyDiscontinuousCollection.are_collections_aligned(self._input_collections)
-
-        # check comfort parameters
-        self._body_par_check(solarcal_body_parameter)
 
         # compute SolarCal
         self._calculate_solarcal()
@@ -370,8 +380,6 @@ class IndoorSolarCal(_SolarCalBase):
         """Compute SolarCal for each step of the Data Collection."""
         # empty lists to be filled
         self._erf = []
-        self._dmrt = []
-        self._mrt = []
 
         # get altitudes and sharps from solar position
         _altitudes, _sharps = self._get_altitudes_and_sharps()
@@ -436,44 +444,47 @@ class HorizontalSolarCal(_SolarCalBase):
     This is particularly useful when trying to estimate solar MRT deltas from
     Radiance radiation simulation result.
 
+    Args:
+        location: A Ladybug Location object.
+        direct_horizontal_solar: Hourly Data Collection with the direct horizontal
+            solar irradiance in W/m2.
+        diffuse_horizontal_solar: Hourly Data Collection with the diffuse
+            horizontal solar irradiance in W/m2.
+        longwave_mrt: Hourly Data Collection or individual value with the longwave
+            mean radiant temperature (MRT) expereinced as a result of indoor
+            surface temperatures in C.
+        fraction_body_exposed: A Data Collection or number between 0 and 1
+            representing the fraction of the body exposed to direct sunlight.
+            Note that this does not include the body’s self-shading; only the
+            shading from surroundings.
+            Default is 1 for a person standing in an open area.
+        floor_reflectance: A Data Collection or number between 0 and 1 that
+            represents the reflectance of the floor. Default is for 0.25 which
+            is characteristic of outdoor grass or dry bare soil.
+        solarcal_body_parameter: Optional SolarCalParameter object to account for
+            properties of the human geometry.
+
     Properties:
-        location
-        direct_horizontal_solar
-        diffuse_horizontal_solar
-        longwave_mrt
-        fraction_body_exposed
-        floor_reflectance
-        solarcal_body_parameter
-        effective_radiant_field
-        mrt_delta
-        mean_radiant_temperature
+        * location
+        * direct_horizontal_solar
+        * diffuse_horizontal_solar
+        * longwave_mrt
+        * fraction_body_exposed
+        * floor_reflectance
+        * solarcal_body_parameter
+        * effective_radiant_field
+        * mrt_delta
+        * mean_radiant_temperature
     """
     _model = 'Horizontal SolarCal'
+    __slots__ = ('_dir_horiz', '_diff_horiz', '_l_mrt', '_erf', '_dmrt',
+                 '_dir_horiz_coll', '_diff_horiz_coll', '_l_mrt_coll',
+                 '_erf_coll', '_dmrt_coll')
 
     def __init__(self, location, direct_horizontal_solar, diffuse_horizontal_solar,
                  longwave_mrt, fraction_body_exposed=None,
                  floor_reflectance=None, solarcal_body_parameter=None):
         """Initalize Horizontal SolarCal object.
-
-        Args:
-            location: A Ladybug Location object.
-            direct_horizontal_solar: Hourly Data Collection with the direct horizontal
-                solar irradiance in W/m2.
-            diffuse_horizontal_solar: Hourly Data Collection with the diffuse
-                horizontal solar irradiance in W/m2.
-            longwave_mrt: Hourly Data Collection or individual value with the longwave
-                mean radiant temperature (MRT) expereinced as a result of indoor
-                surface temperatures in C.
-            fraction_body_exposed: A Data Collection or number between 0 and 1
-                representing the fraction of the body exposed to direct sunlight.
-                Note that this does not include the body’s self-shading; only the
-                shading from surroundings.
-                Default is 1 for a person standing in an open area.
-            floor_reflectance: A Data Collection or number between 0 and 1 that
-                represents the reflectance of the floor. Default is for 0.25 which
-                is characteristic of outdoor grass or dry bare soil.
-            solarcal_body_parameter: Optional SolarCalParameter object to account for
-                properties of the human geometry.
         """
         # set up the object using radiation as a base
         self._radiation_check(direct_horizontal_solar, 'direct_horizontal_solar')
@@ -483,24 +494,14 @@ class HorizontalSolarCal(_SolarCalBase):
         self._base_collection = direct_horizontal_solar
 
         # check required inputs
-        assert isinstance(location, Location), 'location must be a Ladybug Location' \
-            ' object. Got {}.'.format(type(location))
-        self._location = location.duplicate()
+        _SolarCalBase.__init__(self, location, fraction_body_exposed, floor_reflectance,
+                               solarcal_body_parameter)
         self._dir_horiz = direct_horizontal_solar.values
         self._diff_horiz = diffuse_horizontal_solar.values
         self._l_mrt = self._check_input(longwave_mrt, Temperature, 'C', 'longwave_mrt')
 
-        # check optional inputs
-        self._fract_exp = self._fraction_input_check(
-            fraction_body_exposed, 'fraction_body_exposed', 1)
-        self._flr_ref = self._fraction_input_check(
-            floor_reflectance, 'floor_reflectance', 0.25)
-
         # check that all input data collections are aligned.
         HourlyDiscontinuousCollection.are_collections_aligned(self._input_collections)
-
-        # check comfort parameters
-        self._body_par_check(solarcal_body_parameter)
 
         # compute SolarCal
         self._calculate_solarcal()
@@ -509,8 +510,6 @@ class HorizontalSolarCal(_SolarCalBase):
         """Compute SolarCal for each step of the Data Collection."""
         # empty lists to be filled
         self._erf = []
-        self._dmrt = []
-        self._mrt = []
 
         # get altitudes and sharps from solar position
         _altitudes, _sharps = self._get_altitudes_and_sharps()
