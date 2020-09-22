@@ -8,8 +8,8 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name="ladybug-comfort",
-    use_scm_version=True,
-    setup_requires=['setuptools_scm'],
+    # use_scm_version=True,
+    # setup_requires=['setuptools_scm'],
     author="Ladybug Tools",
     author_email="info@ladybug.tools",
     description="Ladybug comfort is a Python library that adds thermal comfort "
